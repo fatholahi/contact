@@ -1,4 +1,5 @@
 ﻿using Contact.Model.Table;
+using Contact.Utility;
 using Dapper;
 using Microsoft.Data.SqlClient;
 
@@ -6,58 +7,48 @@ namespace Contact.Data
 {
     public class UserData
     {
-        public int Insert(UserTable table)
+        private Crud crud;
+        private SqlConnection db;
+
+        public UserData()
         {
             string connectionString = "Server=.;Database=Contact;Integrated Security=True;Encrypt=True;Trust Server Certificate=True;";
 
-            SqlConnection db = new(connectionString);
+            this.db = new(connectionString);
 
-            db.Open();
+            this.crud = new(this.db);
+        }
 
-            string sql = @"INSERT INTO [dbo].[User]
-(Username, Password, FullName, Avatar)
-OUTPUT INSERTED.Id
-VALUES (@Username, @Password, @FullName, @Avatar)";
-
-            int id = db.ExecuteScalar<int>(sql, table);
-
-            db.Close();
-
-            return id;
+        public int Insert(UserTable table)
+        {
+            return this.crud.Insert(table);
         }
 
         public int GetUserId(string username, byte[] password)
         {
-            string connectionString = "Server=.;Database=Contact;Integrated Security=True;Encrypt=True;Trust Server Certificate=True;";
-
-            SqlConnection db = new(connectionString);
-
-            db.Open();
-
             string sql = @"SELECT Id FROM [dbo].[User] WHERE Username = @Username AND Password = @Password";
 
             int id = db.ExecuteScalar<int>(sql, new { Username = username, Password = password });
-
-            db.Close();
 
             return id;
         }
 
         public UserTable GetUserInfoById(int id)
         {
-            string connectionString = "Server=.;Database=Contact;Integrated Security=True;Encrypt=True;Trust Server Certificate=True;";
-
-            SqlConnection db = new(connectionString);
-
-            db.Open();
-
             string sql = @"SELECT Username, FullName, Avatar FROM [dbo].[User] WHERE Id = @Id";
 
             UserTable table = db.QuerySingle<UserTable>(sql, new { Id = id });
 
-            db.Close();
-
             return table;
+        }
+
+        public void Test()
+        {
+            UserTable user = this.crud.GetById<UserTable>(2004);
+
+            user.FullName = "Reza";
+
+            this.crud.UpdateById<UserTable>(user);
         }
     }
 }
