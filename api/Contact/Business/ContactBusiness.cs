@@ -1,4 +1,6 @@
-﻿using Contact.Data;
+﻿using System.Collections.Generic;
+
+using Contact.Data;
 using Contact.Model;
 using Contact.Model.Table;
 
