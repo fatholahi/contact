@@ -1,7 +1,7 @@
-CREATE DATABASE Contacts
+CREATE DATABASE Contact
 GO
 
-USE Contacts
+USE Contact
 GO
 
 CREATE TABLE dbo.[User]
