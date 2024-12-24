@@ -1,7 +1,9 @@
-﻿using Contact.Model.Table;
-using Contact.Utility;
+﻿using Microsoft.Data.SqlClient;
+
 using Dapper;
-using Microsoft.Data.SqlClient;
+
+using Contact.Model.Table;
+using Contact.Utility;
 
 namespace Contact.Data
 {

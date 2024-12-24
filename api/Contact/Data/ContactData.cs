@@ -1,7 +1,7 @@
-﻿using Contact.Model;
+﻿using Microsoft.Data.SqlClient;
+
 using Contact.Model.Table;
 using Contact.Utility;
-using Microsoft.Data.SqlClient;
 
 namespace Contact.Data
 {

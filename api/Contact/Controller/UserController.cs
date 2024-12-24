@@ -1,7 +1,8 @@
-﻿using Contact.Business;
+﻿using Microsoft.AspNetCore.Mvc;
+
+using Contact.Business;
 using Contact.Model;
 using Contact.Model.User;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Contact.Controller
 {

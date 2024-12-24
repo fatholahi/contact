@@ -1,4 +1,7 @@
-﻿namespace Contact
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace Contact
 {
     internal class Program
     {

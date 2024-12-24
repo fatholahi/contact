@@ -1,10 +1,10 @@
-﻿using Contact.Data;
+﻿using System.Security.Cryptography;
+using System.Text;
+
+using Contact.Data;
 using Contact.Model;
 using Contact.Model.Table;
 using Contact.Model.User;
-using System.Reflection;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace Contact.Business
 {
