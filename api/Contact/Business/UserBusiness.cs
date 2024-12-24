@@ -34,7 +34,7 @@ namespace Contact.Business
 				Directory.CreateDirectory(@".\Avatar");
 			}
 
-			string file = @$".\Avatar\{model.Username.ToLower()}.png";
+			string file = @$".\Avatar\{model.UserName.ToLower()}.png";
 
 			if (File.Exists(file))
 			{
@@ -45,10 +45,10 @@ namespace Contact.Business
 
 			UserTable user = new()
 			{
-				Username = model.Username,
+				Username = model.UserName,
 				Password = password,
 				FullName = model.FullName,
-				Avatar = $"{model.Username.ToLower()}.png"
+				Avatar = $"{model.UserName.ToLower()}.png"
 			};
 
 			result.Data = new UserData().Insert(user);
