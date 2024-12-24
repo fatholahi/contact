@@ -100,7 +100,7 @@ namespace Contact.Business
 				Data = new UserProfileModel()
 				{
 					Avatar = data,
-					Username = table.Username,
+					UserName = table.Username,
 					FullName = table.FullName,
 				}
 			};
