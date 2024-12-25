@@ -20,7 +20,6 @@ namespace Contact.Business
 
 			model.ImageData = model.ImageData.Replace("data:image/png;base64,", "");
 
-
             byte[] avatar = Convert.FromBase64String(model.ImageData);
 
 			if (!Directory.Exists(@".\Avatar"))
