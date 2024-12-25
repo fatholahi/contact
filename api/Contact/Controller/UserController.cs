@@ -17,7 +17,13 @@ namespace Contact.Controller
             this.business = new UserBusiness();
         }
 
-        [HttpPut("add")]
+        [HttpPost("login")]
+        public BusinessResult<int> Login(UserLoginModel model)
+        {
+            return this.business.LoginBusiness(model);
+        }
+
+        [HttpPost("register")]
         public BusinessResult<int> Register(UserAddModel model)
         {
             return this.business.RegisterBusiness(model);

@@ -13,6 +13,13 @@ namespace Contact
 
             var app = builder.Build();
 
+            app.UseCors(x=>
+            {
+                x.AllowAnyHeader();
+                x.AllowAnyMethod();
+                x.AllowAnyOrigin();
+            });
+
             app.UseAuthorization();
 
             app.MapControllers();

@@ -16,18 +16,12 @@ namespace Contact.Business
 		{
 			BusinessResult<int> result = new();
 
-			if (model.Password != model.PasswordConfirm)
-			{
-				result.Success = false;
-				result.ErrorCode = 1001;
-				result.ErrorMessage = "Password does not match";
-
-				return result;
-			}
-
 			byte[] password = MD5.HashData(Encoding.UTF8.GetBytes(model.Password));
 
-			byte[] avatar = Convert.FromBase64String(model.ImageData);
+			model.ImageData = model.ImageData.Replace("data:image/png;base64,", "");
+
+
+            byte[] avatar = Convert.FromBase64String(model.ImageData);
 
 			if (!Directory.Exists(@".\Avatar"))
 			{
@@ -58,7 +52,7 @@ namespace Contact.Business
 			return result;
 		}
 
-		public BusinessResult<int> Login(UserLoginModel model)
+		public BusinessResult<int> LoginBusiness(UserLoginModel model)
 		{
 			byte[] password = MD5.HashData(Encoding.UTF8.GetBytes(model.Password));
 
