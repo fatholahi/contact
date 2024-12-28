@@ -40,7 +40,7 @@ namespace Contact.Business
 			{
 				Username = model.UserName,
 				Password = password,
-				FullName = model.FullName,
+				Fullname = model.FullName,
 				Avatar = $"{model.UserName.ToLower()}.png"
 			};
 
@@ -94,7 +94,7 @@ namespace Contact.Business
 				{
 					Avatar = data,
 					UserName = table.Username,
-					FullName = table.FullName,
+					FullName = table.Fullname,
 				}
 			};
 		}

@@ -48,7 +48,7 @@ namespace Contact.Data
         {
             UserTable user = this.crud.GetById<UserTable>(2004);
 
-            user.FullName = "Reza";
+            user.Fullname = "Reza";
 
             this.crud.UpdateById<UserTable>(user);
         }
