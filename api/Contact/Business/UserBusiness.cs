@@ -27,7 +27,7 @@ namespace Contact.Business
 				Directory.CreateDirectory(@".\Avatar");
 			}
 
-			string file = @$".\Avatar\{model.UserName.ToLower()}.png";
+			string file = @$".\Avatar\{model.Username.ToLower()}.png";
 
 			if (File.Exists(file))
 			{
@@ -38,10 +38,10 @@ namespace Contact.Business
 
 			UserTable user = new()
 			{
-				Username = model.UserName,
+				Username = model.Username,
 				Password = password,
-				Fullname = model.FullName,
-				Avatar = $"{model.UserName.ToLower()}.png"
+				Fullname = model.Fullname,
+				Avatar = $"{model.Username.ToLower()}.png"
 			};
 
 			result.Data = new UserData().Insert(user);
@@ -80,11 +80,11 @@ namespace Contact.Business
 
 			string file = @$".\Avatar\{table.Username.ToLower()}.png";
 
-			string data = "";
+			string data = "data:image/png;base64,";
 
 			if (File.Exists(file))
 			{
-				data = Convert.ToBase64String(File.ReadAllBytes(file));
+				data += Convert.ToBase64String(File.ReadAllBytes(file));
 			}
 
 			return new BusinessResult<UserProfileModel>()
@@ -93,8 +93,8 @@ namespace Contact.Business
 				Data = new UserProfileModel()
 				{
 					Avatar = data,
-					UserName = table.Username,
-					FullName = table.Fullname,
+					Username = table.Username,
+					Fullname = table.Fullname,
 				}
 			};
 		}
