@@ -3,36 +3,63 @@
 using Contact.Business;
 using Contact.Model;
 using Contact.Model.User;
+using Contact.Utility;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Contact.Controller
 {
     [ApiController]
     [Route("user")]
-    public class UserController
+    public class UserController : ControllerBase
     {
-        private UserBusiness business;
+        private UserBusiness userBusiness;
 
-        public UserController()
+        public UserController(UserBusiness userBusiness)
         {
-            this.business = new UserBusiness();
+            this.userBusiness = userBusiness;
         }
 
         [HttpPost("login")]
-        public BusinessResult<int> Login(UserLoginModel model)
+        public BusinessResult<string> Login(UserLoginModel model)
         {
-            return this.business.LoginBusiness(model);
+            BusinessResult<int> result = this.userBusiness.LoginBusiness(model);
+
+            if (result.Success)
+            {
+                int userId = result.Data;
+
+                string token = Token.Generate(userId);
+
+                return new()
+                {
+                    Success = true,
+                    Data = token
+                };
+            }
+            else
+            {
+                return new()
+                {
+                    Success = false,
+                    ErrorCode = result.ErrorCode,
+                    ErrorMessage = result.ErrorMessage
+                };
+            }
         }
 
         [HttpPost("register")]
         public BusinessResult<int> Register(UserAddModel model)
         {
-            return this.business.RegisterBusiness(model);
+            return this.userBusiness.RegisterBusiness(model);
         }
 
+        [Authorize]
         [HttpGet("profile")]
-        public BusinessResult<UserProfileModel> Profile(int userId)
+        public BusinessResult<UserProfileModel> Profile()
         {
-            return this.business.ProfileBusiness(userId);
+            string userId = base.User.Identity.Name;
+
+            return this.userBusiness.ProfileBusiness(int.Parse(userId));
         }
     }
 }

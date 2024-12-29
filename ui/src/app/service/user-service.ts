@@ -9,14 +9,19 @@ import { UserAddModel } from "../model/user-add-model";
 export class UserService {
     constructor(private http: HttpClient) { }
 
-    getProfile(userid: any) {
-        let url = `http://localhost:52745/user/profile?userid=${userid}`;
-        return this.http.get<Result<UserProfileMode>>(url);
+    getProfile() {
+        let jwt = sessionStorage.getItem('jwt');
+        let url = "http://localhost:52745/user/profile";
+        return this.http.get<Result<UserProfileMode>>(url, {
+            headers: {
+                "Authorization": `Bearer ${jwt}`
+            }
+        });
     }
 
     postLogin(request: UserLoginModel) {
         let url = "http://localhost:52745/user/login";
-        return this.http.post<Result<Number>>(url, request);
+        return this.http.post<Result<string>>(url, request);
     }
     
     postRegister(request: UserAddModel) {

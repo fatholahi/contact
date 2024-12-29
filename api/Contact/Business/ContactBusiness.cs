@@ -8,21 +8,33 @@ namespace Contact.Business
 {
     public class ContactBusiness
     {
-        private ContactData data;
+        private ContactData contactData;
 
-        public ContactBusiness()
+        public ContactBusiness(ContactData contactData)
         {
-            this.data = new ContactData();
+            this.contactData = contactData;
         }
 
         public BusinessResult<IEnumerable<PhoneTypeTable>> GetPhoneTypesBusiness()
         {
             BusinessResult<IEnumerable<PhoneTypeTable>> result = new();
-
+            
             result.Success = true;
-            result.Data = this.data.GetPhoneTypesData();
+
+            result.Data = this.contactData.GetPhoneTypesData();
 
             return result;
+        }
+
+        public BusinessResult<bool> RemoveContactBusiness(int contactId, int userId)
+        {
+            this.contactData.RemoveContactData(contactId, userId);
+
+            return new()
+            {
+                Success = true,
+                Data = true
+            };
         }
     }
 }

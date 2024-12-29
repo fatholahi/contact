@@ -12,6 +12,13 @@ namespace Contact.Business
 {
 	public class UserBusiness
 	{
+		private UserData userData;
+
+		public UserBusiness(UserData userData)
+		{
+			this.userData = userData;
+		}
+
 		public BusinessResult<int> RegisterBusiness(UserAddModel model)
 		{
 			BusinessResult<int> result = new();
@@ -44,7 +51,7 @@ namespace Contact.Business
 				Avatar = $"{model.Username.ToLower()}.png"
 			};
 
-			result.Data = new UserData().Insert(user);
+			result.Data = this.userData.Insert(user);
 
 			result.Success = true;
 
@@ -55,7 +62,7 @@ namespace Contact.Business
 		{
 			byte[] password = MD5.HashData(Encoding.UTF8.GetBytes(model.Password));
 
-			int id = new UserData().GetUserId(model.Username, password);
+			int id = this.userData.GetUserId(model.Username, password);
 
 			if (id == 0)
 			{
@@ -76,7 +83,7 @@ namespace Contact.Business
 
 		public BusinessResult<UserProfileModel> ProfileBusiness(int userId)
 		{
-			UserTable table = new UserData().GetUserInfoById(userId);
+			UserTable table = this.userData.GetUserInfoById(userId);
 
 			string file = @$".\Avatar\{table.Username.ToLower()}.png";
 

@@ -9,16 +9,14 @@ namespace Contact.Data
 {
     public class UserData
     {
-        private Crud crud;
         private SqlConnection db;
+        private Crud crud;
 
-        public UserData()
+        public UserData(SqlConnection db, Crud crud)
         {
-            string connectionString = "Server=.;Database=Contact;Integrated Security=True;Encrypt=True;Trust Server Certificate=True;";
+            this.db = db;
 
-            this.db = new(connectionString);
-
-            this.crud = new(this.db);
+            this.crud = crud;
         }
 
         public int Insert(UserTable table)

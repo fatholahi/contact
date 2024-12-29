@@ -14,9 +14,7 @@ export class ProfilePageComponent implements OnInit {
     avatar = "";
 
     ngOnInit() {
-        let userId = sessionStorage.getItem('userid');
-
-        this.userService.getProfile(userId).subscribe((response) => {
+        this.userService.getProfile().subscribe((response) => {
             this.username = response.data.username;
             this.fullname = response.data.fullname;
             this.avatar = response.data.avatar;

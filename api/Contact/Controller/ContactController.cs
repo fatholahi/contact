@@ -11,17 +11,17 @@ namespace Contact.Controller
     [Route("contact")]
     public class ContactController
     {
-        private ContactBusiness business;
+        private ContactBusiness contactBusiness;
 
-        public ContactController()
+        public ContactController(ContactBusiness contactBusiness)
         {
-            this.business = new ContactBusiness();
+            this.contactBusiness = contactBusiness;
         }
 
         [HttpGet("phonetypes")]
         public BusinessResult<IEnumerable<PhoneTypeTable>> GetPhoneTypes()
         {
-            return business.GetPhoneTypesBusiness();
+            return contactBusiness.GetPhoneTypesBusiness();
         }
     }
 }

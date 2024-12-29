@@ -20,8 +20,6 @@ export class LoginPageComponent {
     });
 
     login() {
-        console.log(this.loginForm.valid);
-
         let request: UserLoginModel = {
             username: this.loginForm.value.username as string,
             password: this.loginForm.value.password as string
@@ -29,7 +27,7 @@ export class LoginPageComponent {
 
         this.userService.postLogin(request).subscribe((response) => {
             if (response.success) {
-                sessionStorage.setItem('userid', response.data.toString());
+                sessionStorage.setItem('jwt', response.data);
                 this.router.navigate(['profile']);
             } else {
                 alert(response.errorMessage);

@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.DependencyInjection;
 
 using Contact.Utility;
+using Contact.Business;
+using Contact.Data;
 
 namespace Contact
 {
@@ -13,11 +16,23 @@ namespace Contact
 
             builder.Services.AddControllers();
 
-            //builder.Services.AddAuthorization();
-            //builder.Services.AddAuthentication().AddJwtBearer(x =>
-            //{
-            //    x.TokenValidationParameters = Token.Params;
-            //});
+            string cs = builder.Configuration.GetSection("Connection").Value;
+
+            builder.Services.AddTransient<SqlConnection>(x => new SqlConnection(cs));
+
+            builder.Services.AddTransient<Crud>();
+
+            builder.Services.AddTransient<UserBusiness>();
+            builder.Services.AddTransient<ContactBusiness>();
+
+            builder.Services.AddTransient<UserData>();
+            builder.Services.AddTransient<ContactData>();
+
+            builder.Services.AddAuthorization();
+            builder.Services.AddAuthentication().AddJwtBearer(x =>
+            {
+                x.TokenValidationParameters = Token.Params;
+            });
 
             var app = builder.Build();
 
@@ -28,7 +43,7 @@ namespace Contact
                 x.AllowAnyOrigin();
             });
 
-            //app.UseAuthorization();
+            app.UseAuthorization();
             //app.UseAuthentication();
 
             app.MapControllers();
