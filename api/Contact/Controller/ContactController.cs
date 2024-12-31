@@ -55,6 +55,14 @@ namespace Contact.Controller
             return contactBusiness.EditContactBusiness(request);
         }
 
+        [HttpPut("editphone")]
+        public BusinessResult<bool> EditPhone(PhoneTable request)
+        {
+            int userId = int.Parse(base.User.Identity.Name);
+
+            return contactBusiness.EditPhoneBusiness(request,  userId);
+        }
+
         [HttpGet("getcontacts")]
         public BusinessResult<IEnumerable<ContactTable>> GetContacts()
         {

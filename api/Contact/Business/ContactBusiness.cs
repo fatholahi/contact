@@ -59,6 +59,17 @@ namespace Contact.Business
             };
         }
 
+        public BusinessResult<bool> EditPhoneBusiness(PhoneTable phone, int userId)
+        {
+            this.contactData.EditPhoneData(phone, userId);
+
+            return new()
+            {
+                Success = true,
+                Data = true
+            };
+        }
+
         public BusinessResult<IEnumerable<PhoneTypeTable>> GetPhoneTypesBusiness()
         {
             return new()

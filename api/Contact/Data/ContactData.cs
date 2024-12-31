@@ -38,6 +38,11 @@ namespace Contact.Data
             this.crud.UpdateById(contact);
         }
 
+        public void EditPhoneData(PhoneTable phone, int userId)
+        {
+            this.crud.UpdateById(phone);
+        }
+
         public IEnumerable<ContactTable> GetContactsData(int userId)
         {
             return this.crud.Select<ContactTable>();
