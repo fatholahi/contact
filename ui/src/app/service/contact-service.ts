@@ -14,49 +14,41 @@ export class ContactService {
 
     addContact(request: ContactModel) {
         let url = `${enviroment.baseUrl}/contact/addcontact`;
-        return this.http.post<Result<boolean>>(url, request, {
-        });
+        return this.http.post<Result<boolean>>(url, request);
     }
 
     addPhone(request: PhoneModel) {
         let url = `${enviroment.baseUrl}/contact/addphone`;
-        return this.http.post<Result<boolean>>(url, request, {
-        });
+        return this.http.post<Result<boolean>>(url, request);
     }
 
     addFavorite(request: FavoriteModel) {
         let url = `${enviroment.baseUrl}/contact/addfavorite`;
-        return this.http.post<Result<boolean>>(url, request, {
-        });
+        return this.http.post<Result<boolean>>(url, request);
     }
 
     getContacts() {
         let url = `${enviroment.baseUrl}/contact/getcontacts`;
-        return this.http.get<Result<ContactModel>>(url, {
-        });
+        return this.http.get<Result<ContactModel>>(url);
     }
 
     getPhoneTypes() {
         let url = `${enviroment.baseUrl}/contact/getphonetypes`;
-        return this.http.get<Result<PhoneTypeModel>>(url, {
-        });
+        return this.http.get<Result<PhoneTypeModel>>(url);
     }
 
     removeContact(request: Number) {
         let url = `${enviroment.baseUrl}/contact/removecontact?request=${request}`;
-        return this.http.delete<Result<boolean>>(url, {
-        });
+        return this.http.delete<Result<boolean>>(url);
     }
 
     removePhone(request: Number) {
         let url = `${enviroment.baseUrl}/contact/removephone?request=${request}`;
-        return this.http.delete<Result<boolean>>(url, {
-        });
+        return this.http.delete<Result<boolean>>(url);
     }
 
     removeFavorite(request: Number) {
         let url = `${enviroment.baseUrl}/contact/removefavorite?request=${request}`;
-        return this.http.delete<Result<boolean>>(url, {
-        });
+        return this.http.delete<Result<boolean>>(url);
     }
 }
