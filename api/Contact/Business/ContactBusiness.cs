@@ -15,9 +15,31 @@ namespace Contact.Business
             this.contactData = contactData;
         }
 
-        public BusinessResult<bool> AddContact(ContactTable request)
+        public BusinessResult<bool> AddContact(ContactTable contact)
         {
-            this.contactData.AddContactData(request);
+            this.contactData.AddContactData(contact);
+
+            return new()
+            {
+                Success = true,
+                Data = true
+            };
+        }
+
+        public BusinessResult<bool> AddPhoneBusiness(PhoneTable phone, int userId)
+        {
+            this.contactData.AddPhoneData(phone, userId);
+
+            return new()
+            {
+                Success = true,
+                Data = true
+            };
+        }
+
+        public BusinessResult<bool> AddFavoriteBusiness(FavoriteTable favorite, int userId)
+        {
+            this.contactData.AddFavoriteData(favorite, userId);
 
             return new()
             {
@@ -58,6 +80,28 @@ namespace Contact.Business
         public BusinessResult<bool> RemoveContactBusiness(int contactId, int userId)
         {
             this.contactData.RemoveContactData(contactId, userId);
+
+            return new()
+            {
+                Success = true,
+                Data = true
+            };
+        }
+
+        public BusinessResult<bool> RemovePhoneBusiness(int phoneId, int userId)
+        {
+            this.contactData.RemovePhoneData(phoneId, userId);
+
+            return new()
+            {
+                Success = true,
+                Data = true
+            };
+        }
+
+        public BusinessResult<bool> RemoveFavoriteBusiness(int contactId, int userId)
+        {
+            this.contactData.RemoveFavoritetData(contactId, userId);
 
             return new()
             {

@@ -19,8 +19,7 @@ namespace Contact.Controller
             this.contactBusiness = contactBusiness;
         }
 
-
-        [HttpPut("addcontact")]
+        [HttpPost("addcontact")]
         public BusinessResult<bool> AddContact(ContactTable request)
         {
             int userId = int.Parse(base.User.Identity.Name);
@@ -28,6 +27,22 @@ namespace Contact.Controller
             request.UserId = userId;
 
             return contactBusiness.AddContact(request);
+        }
+
+        [HttpPost("addphone")]
+        public BusinessResult<bool> AddPhone(PhoneTable request)
+        {
+            int userId = int.Parse(base.User.Identity.Name);
+
+            return contactBusiness.AddPhoneBusiness(request, userId);
+        }
+
+        [HttpPost("addfavorite")]
+        public BusinessResult<bool> AddFavorite(FavoriteTable request)
+        {
+            int userId = int.Parse(base.User.Identity.Name);
+
+            return contactBusiness.AddFavoriteBusiness(request, userId);
         }
 
         [HttpPut("editcontact")]
@@ -60,6 +75,22 @@ namespace Contact.Controller
             int userId = int.Parse(base.User.Identity.Name);
 
             return contactBusiness.RemoveContactBusiness(request, userId);
+        }
+
+        [HttpDelete("removephone")]
+        public BusinessResult<bool> RemovePhone(int request)
+        {
+            int userId = int.Parse(base.User.Identity.Name);
+
+            return contactBusiness.RemovePhoneBusiness(request, userId);
+        }
+
+        [HttpDelete("removefavorite")]
+        public BusinessResult<bool> RemoveFavorite(int request)
+        {
+            int userId = int.Parse(base.User.Identity.Name);
+
+            return contactBusiness.RemoveFavoriteBusiness(request, userId);
         }
     }
 }
