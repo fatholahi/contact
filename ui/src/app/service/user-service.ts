@@ -1,9 +1,12 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+
 import { Result } from "../model/result";
+import { UserAddModel } from "../model/user-add-model";
 import { UserLoginModel } from "../model/user-login-model";
 import { UserProfileMode } from "../model/user-profile-model";
-import { UserAddModel } from "../model/user-add-model";
+
+import { enviroment } from "../environments/environment";
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -11,21 +14,21 @@ export class UserService {
 
     getProfile() {
         let jwt = sessionStorage.getItem('jwt');
-        let url = "http://localhost:52745/user/profile";
+        let url = `${enviroment.baseUrl}/user/profile`;
         return this.http.get<Result<UserProfileMode>>(url, {
             headers: {
-                "Authorization": `Bearer ${jwt}`
+                'Authorization': `Bearer ${jwt}`
             }
         });
     }
 
     postLogin(request: UserLoginModel) {
-        let url = "http://localhost:52745/user/login";
+        let url = `${enviroment.baseUrl}/user/login`;
         return this.http.post<Result<string>>(url, request);
     }
     
     postRegister(request: UserAddModel) {
-        let url = "http://localhost:52745/user/register";
+        let url = `${enviroment.baseUrl}/user/register`;
         return this.http.post<Result<Number>>(url, request);
     }
 }
