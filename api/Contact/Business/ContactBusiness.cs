@@ -15,15 +15,44 @@ namespace Contact.Business
             this.contactData = contactData;
         }
 
+        public BusinessResult<bool> AddContact(ContactTable request)
+        {
+            this.contactData.AddContactData(request);
+
+            return new()
+            {
+                Success = true,
+                Data = true
+            };
+        }
+
+        public BusinessResult<bool> EditContactBusiness(ContactTable contact)
+        {
+            this.contactData.EditContactData(contact);
+
+            return new()
+            {
+                Success = true,
+                Data = true
+            };
+        }
+
         public BusinessResult<IEnumerable<PhoneTypeTable>> GetPhoneTypesBusiness()
         {
-            BusinessResult<IEnumerable<PhoneTypeTable>> result = new();
-            
-            result.Success = true;
+            return new()
+            {
+                Success = true,
+                Data = this.contactData.GetPhoneTypesData()
+            };
+        }
 
-            result.Data = this.contactData.GetPhoneTypesData();
-
-            return result;
+        public BusinessResult<IEnumerable<ContactTable>> GetContactsBusiness(int userId)
+        {
+            return new()
+            {
+                Success = true,
+                Data = this.contactData.GetContactsData(userId)
+            };
         }
 
         public BusinessResult<bool> RemoveContactBusiness(int contactId, int userId)

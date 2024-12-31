@@ -9,9 +9,9 @@ import { UserService } from "../../service/user-service";
 export class ProfilePageComponent implements OnInit {
     constructor(private userService: UserService) { }
 
-    username = "";
-    fullname = "";
-    avatar = "";
+    username = '';
+    fullname = '';
+    avatar = '';
 
     ngOnInit() {
         this.userService.getProfile().subscribe((response) => {

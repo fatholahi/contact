@@ -1,5 +1,4 @@
-﻿using Microsoft.Data.SqlClient;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 using Contact.Model.Table;
 using Contact.Utility;
@@ -9,18 +8,10 @@ namespace Contact.Data
     public class ContactData
     {
         private Crud crud;
-        private SqlConnection db;
 
-        public ContactData(SqlConnection db, Crud crud)
+        public ContactData(Crud crud)
         {
-            this.db = db;
-
             this.crud = crud;
-        }
-
-        public IEnumerable<PhoneTypeTable> GetPhoneTypesData()
-        {
-            return this.crud.Select<PhoneTypeTable>();
         }
 
         public void AddContactData(ContactTable contact)
@@ -28,9 +19,19 @@ namespace Contact.Data
             this.crud.Insert(contact);
         }
 
+        public void EditContactData(ContactTable contact)
+        {
+            this.crud.UpdateById(contact);
+        }
+
         public IEnumerable<ContactTable> GetContactsData(int userId)
         {
             return this.crud.Select<ContactTable>();
+        }
+
+        public IEnumerable<PhoneTypeTable> GetPhoneTypesData()
+        {
+            return this.crud.Select<PhoneTypeTable>();
         }
 
         public void RemoveContactData(int contactId, int userId)

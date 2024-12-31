@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 using Contact.Business;
 using Contact.Model;
 using Contact.Model.User;
 using Contact.Utility;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Contact.Controller
 {
@@ -57,9 +57,9 @@ namespace Contact.Controller
         [HttpGet("profile")]
         public BusinessResult<UserProfileModel> Profile()
         {
-            string userId = base.User.Identity.Name;
+            int userId = int.Parse(base.User.Identity.Name);
 
-            return this.userBusiness.ProfileBusiness(int.Parse(userId));
+            return this.userBusiness.ProfileBusiness(userId);
         }
     }
 }
