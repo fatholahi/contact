@@ -19,13 +19,13 @@ namespace Contact.Business
 
         public BusinessResult<bool> AddContactBusiness(ContactTable contact)
         {
-            int contactId = this.contactData.AddContactData(contact);
+            string guid = Guid.NewGuid().ToString().Replace("-", "");
 
             string avatar = contact.Avatar.Replace("data:image/png;base64,", "");
 
             byte[] image = Convert.FromBase64String(avatar);
 
-            string file = @$".\Avatar\{contactId}.png";
+            string file = @$".\Avatar\{guid}.png";
 
             if (File.Exists(file))
             {
@@ -33,6 +33,10 @@ namespace Contact.Business
             }
 
             File.WriteAllBytes(file, image);
+
+            contact.Avatar = guid.ToString();
+
+            this.contactData.AddContactData(contact);
 
             return new()
             {
@@ -85,6 +89,15 @@ namespace Contact.Business
             };
         }
 
+        public BusinessResult<IEnumerable<PhoneTable>> GetPhonesBusiness(int contactId, int userId)
+        {
+            return new()
+            {
+                Success = true,
+                Data = this.contactData.GetPhonesData(contactId, userId)
+            };
+        }
+
         public BusinessResult<IEnumerable<PhoneTypeTable>> GetPhoneTypesBusiness()
         {
             return new()
@@ -98,7 +111,7 @@ namespace Contact.Business
         {
             ContactTable contact = this.contactData.GetContactData(contactId, userId);
 
-            string file = @$".\Avatar\{contactId}.png";
+            string file = @$".\Avatar\{contact.Avatar}.png";
 
             contact.Avatar = "data:image/png;base64,";
 
@@ -117,15 +130,6 @@ namespace Contact.Business
             {
                 Success = true,
                 Data = this.contactData.GetContactsData(userId)
-            };
-        }
-
-        public BusinessResult<IEnumerable<PhoneTable>> GetPhonesBusiness(int contactId, int userId)
-        {
-            return new()
-            {
-                Success = true,
-                Data = this.contactData.GetPhonesData(contactId, userId)
             };
         }
 

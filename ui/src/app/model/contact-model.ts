@@ -1,5 +1,5 @@
 export interface ContactModel {
-    id: Number,
+    id: number,
     fullname: string,
     email: string,
     avatar: string

@@ -60,7 +60,7 @@ namespace Contact.Controller
         {
             int userId = int.Parse(base.User.Identity.Name);
 
-            return contactBusiness.EditPhoneBusiness(request,  userId);
+            return contactBusiness.EditPhoneBusiness(request, userId);
         }
 
         [HttpGet("getcontact")]
@@ -79,7 +79,15 @@ namespace Contact.Controller
             return contactBusiness.GetContactsBusiness(userId);
         }
 
-        [HttpGet("phonetypes")]
+        [HttpGet("getphones")]
+        public BusinessResult<IEnumerable<PhoneTable>> GetPhones(int request)
+        {
+            int userId = int.Parse(base.User.Identity.Name);
+
+            return contactBusiness.GetPhonesBusiness(request, userId);
+        }
+
+        [HttpGet("getphonetypes")]
         public BusinessResult<IEnumerable<PhoneTypeTable>> GetPhoneTypes()
         {
             return contactBusiness.GetPhoneTypesBusiness();

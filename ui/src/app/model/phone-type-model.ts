@@ -1,4 +1,4 @@
 export interface PhoneTypeModel {
-    id: Number,
+    id: number,
     title: string
 }

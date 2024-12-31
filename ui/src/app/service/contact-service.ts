@@ -27,14 +27,24 @@ export class ContactService {
         return this.http.post<Result<boolean>>(url, request);
     }
 
+    getContact(request: Number) {
+        let url = `${enviroment.baseUrl}/contact/getcontact?contactId=${request}`;
+        return this.http.get<Result<ContactModel>>(url);
+    }
+
     getContacts() {
         let url = `${enviroment.baseUrl}/contact/getcontacts`;
-        return this.http.get<Result<ContactModel>>(url);
+        return this.http.get<Result<ContactModel[]>>(url);
+    }
+
+    getPhones(request: Number) {
+        let url = `${enviroment.baseUrl}/contact/getphones?request=${request}`;
+        return this.http.get<Result<PhoneModel[]>>(url);
     }
 
     getPhoneTypes() {
         let url = `${enviroment.baseUrl}/contact/getphonetypes`;
-        return this.http.get<Result<PhoneTypeModel>>(url);
+        return this.http.get<Result<PhoneTypeModel[]>>(url);
     }
 
     removeContact(request: Number) {

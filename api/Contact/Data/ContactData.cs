@@ -18,9 +18,9 @@ namespace Contact.Data
             this.crud = crud;
         }
 
-        public int AddContactData(ContactTable contact)
+        public void AddContactData(ContactTable contact)
         {
-            return this.crud.Insert(contact);
+            this.crud.Insert(contact);
         }
 
         public void AddPhoneData(PhoneTable phone, int userId)

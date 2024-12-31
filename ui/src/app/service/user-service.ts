@@ -13,13 +13,8 @@ export class UserService {
     constructor(private http: HttpClient) { }
 
     getProfile() {
-        let jwt = sessionStorage.getItem('jwt');
         let url = `${enviroment.baseUrl}/user/profile`;
-        return this.http.get<Result<UserProfileMode>>(url, {
-            headers: {
-                'Authorization': `Bearer ${jwt}`
-            }
-        });
+        return this.http.get<Result<UserProfileMode>>(url);
     }
 
     postLogin(request: UserLoginModel) {

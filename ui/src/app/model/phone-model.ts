@@ -1,5 +1,6 @@
 export interface PhoneModel {
-    id: Number,
-    phoneTypeId: Number,
+    id: number,
+    contactId: number,
+    phoneTypeId: number,
     number: string
 }

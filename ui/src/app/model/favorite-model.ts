@@ -1,3 +1,3 @@
 export interface FavoriteModel {
-    contactId: Number
+    contactId: number
 }
