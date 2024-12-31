@@ -18,9 +18,9 @@ namespace Contact.Data
             this.crud = crud;
         }
 
-        public void AddContactData(ContactTable contact)
+        public int AddContactData(ContactTable contact)
         {
-            this.crud.Insert(contact);
+            return this.crud.Insert(contact);
         }
 
         public void AddPhoneData(PhoneTable phone, int userId)
@@ -43,9 +43,19 @@ namespace Contact.Data
             this.crud.UpdateById(phone);
         }
 
+        public ContactTable GetContactData(int contactId, int userId)
+        {
+            return this.crud.GetById<ContactTable>(contactId);
+        }
+
         public IEnumerable<ContactTable> GetContactsData(int userId)
         {
             return this.crud.Select<ContactTable>();
+        }
+
+        public IEnumerable<PhoneTable> GetPhonesData(int contactId, int userId)
+        {
+            return this.db.Query<PhoneTable>("SELECT * FROM dbo.Phone WHERE ContactId = @ContactId", new { ContactId = contactId });
         }
 
         public IEnumerable<PhoneTypeTable> GetPhoneTypesData()

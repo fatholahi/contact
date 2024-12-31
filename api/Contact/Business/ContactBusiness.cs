@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 
 using Contact.Data;
 using Contact.Model;
@@ -15,9 +17,22 @@ namespace Contact.Business
             this.contactData = contactData;
         }
 
-        public BusinessResult<bool> AddContact(ContactTable contact)
+        public BusinessResult<bool> AddContactBusiness(ContactTable contact)
         {
-            this.contactData.AddContactData(contact);
+            int contactId = this.contactData.AddContactData(contact);
+
+            string avatar = contact.Avatar.Replace("data:image/png;base64,", "");
+
+            byte[] image = Convert.FromBase64String(avatar);
+
+            string file = @$".\Avatar\{contactId}.png";
+
+            if (File.Exists(file))
+            {
+                File.Delete(file);
+            }
+
+            File.WriteAllBytes(file, image);
 
             return new()
             {
@@ -79,12 +94,38 @@ namespace Contact.Business
             };
         }
 
+        public BusinessResult<ContactTable> GetContactBusiness(int contactId, int userId)
+        {
+            ContactTable contact = this.contactData.GetContactData(contactId, userId);
+
+            string file = @$".\Avatar\{contactId}.png";
+
+            contact.Avatar = "data:image/png;base64,";
+
+            contact.Avatar += Convert.ToBase64String(File.ReadAllBytes(file));
+
+            return new()
+            {
+                Success = true,
+                Data = contact
+            };
+        }
+
         public BusinessResult<IEnumerable<ContactTable>> GetContactsBusiness(int userId)
         {
             return new()
             {
                 Success = true,
                 Data = this.contactData.GetContactsData(userId)
+            };
+        }
+
+        public BusinessResult<IEnumerable<PhoneTable>> GetPhonesBusiness(int contactId, int userId)
+        {
+            return new()
+            {
+                Success = true,
+                Data = this.contactData.GetPhonesData(contactId, userId)
             };
         }
 

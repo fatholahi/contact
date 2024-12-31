@@ -26,7 +26,7 @@ namespace Contact.Controller
 
             request.UserId = userId;
 
-            return contactBusiness.AddContact(request);
+            return contactBusiness.AddContactBusiness(request);
         }
 
         [HttpPost("addphone")]
@@ -61,6 +61,14 @@ namespace Contact.Controller
             int userId = int.Parse(base.User.Identity.Name);
 
             return contactBusiness.EditPhoneBusiness(request,  userId);
+        }
+
+        [HttpGet("getcontact")]
+        public BusinessResult<ContactTable> GetContacts(int request)
+        {
+            int userId = int.Parse(base.User.Identity.Name);
+
+            return contactBusiness.GetContactBusiness(request, userId);
         }
 
         [HttpGet("getcontacts")]
