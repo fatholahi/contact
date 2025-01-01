@@ -7,6 +7,6 @@
     <input type="password" formControlName="password">
     <label>Avatar:</label>
     <input type="file" formControlName="imageData" (change)="show($event)">
-    <img [src]="url" height="120" width="120">
+    <img [src]="url" height="120" width="120" [class.invisible]="url == ''">
     <input type="submit" value="Register">
 </form>

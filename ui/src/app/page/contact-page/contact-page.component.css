@@ -1,0 +1,9 @@
+input, a {
+    display: block;
+    margin: 4px;
+    padding: 4px;
+}
+
+.invisible {
+    display: none;
+}

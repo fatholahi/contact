@@ -10,5 +10,5 @@ export const routes: Routes = [
     { path: 'profile', component: ProfilePageComponent },
     { path: 'register', component: RegisterPageComponent },
     { path: 'contact', component: ContactPageComponent },
-    { path: 'phone', component: PhonePageComponent }
+    { path: 'phone/:contactid', component: PhonePageComponent }
 ];
